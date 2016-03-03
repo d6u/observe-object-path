@@ -36,12 +36,12 @@ class ObserveObjectPath {
 function hashKeypath(keypath: Keypath): string {
   let hash = '';
   for (let i = 0; i < keypath.length; i++) {
-    hash += i.toString() + keypath[i];
+    hash += i.toString() + keypath[i].toString();
   }
   return hash;
 }
 
-type Keypath = string[];
+type Keypath = (string|number)[];
 
 interface ObservingConfig {
   keypath: Keypath;
