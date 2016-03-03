@@ -2,7 +2,7 @@ import { ReplaySubject, Observable } from 'rx';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 
-export default class ObserveObjectPath {
+class ObserveObjectPath {
 
   private observers = new Map<string, ObservingConfig>();
 
@@ -46,4 +46,8 @@ type Keypath = string[];
 interface ObservingConfig {
   keypath: Keypath;
   subject: ReplaySubject<any>;
+}
+
+export {
+  ObserveObjectPath,
 }
