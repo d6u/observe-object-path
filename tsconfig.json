@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "sourceMap": true,
+    "module": "es2015",
+    "target": "es2015",
+    "outDir": "es6"
+  },
+  "files": [
+    "node_modules/rx/ts/rx.all.d.ts",
+    "typings/lodash.d.ts",
+    "ts-source/index.ts"
+  ]
+}
