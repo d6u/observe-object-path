@@ -13,6 +13,10 @@
   },
   "homepage": "https://github.com/d6u/observe-object-path#readme",
   "main": "es5/index.js",
+  "files": [
+    "es5",
+    "es6"
+  ],
   "dependencies": {
     "lodash": "^4.5.1",
     "rx": "^4.0.8"
