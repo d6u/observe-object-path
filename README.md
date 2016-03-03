@@ -6,7 +6,6 @@
 var ObserveObjectPath = require('observe-object-path').ObserveObjectPath;
 
 var obj = {
-  name: 'world',
   nested: {
     prop: 'propVal'
   }
@@ -25,5 +24,5 @@ oop.update({
 });
 
 // Should log 'propVal' at initial subscription
-// Then log 'propNewVal' after `fullUpdate` is called
+// Then log 'propNewVal' after `update` is called
 ```
