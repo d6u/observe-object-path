@@ -32,6 +32,9 @@
     "clean": "rimraf es6 es5",
     "build:ts": "tsc",
     "build:es5": "babel -d es5 es6",
-    "build": "npm run build:ts && npm run build:es5"
+    "build": "npm run build:ts && npm run build:es5",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags",
+    "prepublish": "npm run clean && npm run build"
   }
 }
