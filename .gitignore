@@ -34,5 +34,4 @@ node_modules
 
 /es5
 /es6
-/demo/bundle.*
-/typings
+.DS_Store
