@@ -12,7 +12,7 @@
     "url": "https://github.com/d6u/observe-object-path/issues"
   },
   "homepage": "https://github.com/d6u/observe-object-path#readme",
-  "main": "index.js",
+  "main": "es5/index.js",
   "dependencies": {
     "lodash": "^4.5.1",
     "rx": "^4.0.8"
