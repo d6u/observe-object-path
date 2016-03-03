@@ -1,10 +1,10 @@
 # Observe Object Path
 
-http://stackoverflow.com/questions/35688629/is-there-any-library-that-allows-me-to-subscribe-to-value-changes-of-a-nested-pa
-
 ## Usage
 
 ```js
+var ObserveObjectPath = require('observe-object-path').ObserveObjectPath;
+
 var obj = {
   name: 'world',
   nested: {
@@ -12,13 +12,13 @@ var obj = {
   }
 };
 
-var observableObj = new AwesomeLibrary(obj); // <- AwesomeLibrary should be this one :)
+var oop = new ObserveObjectPath(obj);
 
-observableObj
-  .observe('nested.prop')
+oop
+  .observe(['nested', 'prop'])
   .subscribe((val) => console.log(val));
 
-observableObj.fullUpdate({
+oop.update({
   nested: {
     prop: 'propNewVal'
   }
