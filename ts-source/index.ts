@@ -41,7 +41,7 @@ function hashKeypath(keypath: Keypath): string {
   return hash;
 }
 
-type Keypath = (string|number)[];
+type Keypath = (string | number)[];
 
 interface ObservingConfig {
   keypath: Keypath;
@@ -50,4 +50,5 @@ interface ObservingConfig {
 
 export {
   ObserveObjectPath,
+  Keypath,
 }

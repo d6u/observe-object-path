@@ -15,7 +15,8 @@
   "main": "es5/index.js",
   "files": [
     "es5",
-    "es6"
+    "es6",
+    "ts"
   ],
   "dependencies": {
     "lodash": "^4.5.1",
@@ -33,10 +34,10 @@
   },
   "scripts": {
     "test": "npm run clean && npm run build && tap test/*.js",
-    "clean": "rimraf es6 es5",
+    "clean": "rimraf es6 es5 ts",
     "build:ts": "tsc",
     "build:es5": "babel -d es5 es6",
-    "build": "npm run build:ts && npm run build:es5",
+    "build": "npm run build:ts && npm run build:es5 && mkdir ts && mv es6/*.d.ts ts",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run clean && npm run build"
