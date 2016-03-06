@@ -12,12 +12,12 @@
     "url": "https://github.com/d6u/observe-object-path/issues"
   },
   "homepage": "https://github.com/d6u/observe-object-path#readme",
-  "main": "es5/index.js",
   "files": [
     "es5",
     "es6",
     "ts"
   ],
+  "main": "es5/index.js",
   "dependencies": {
     "lodash": "^4.5.1",
     "rx": "^4.0.8"
@@ -30,14 +30,15 @@
     "rimraf": "^2.5.2",
     "tap": "^5.7.0",
     "tslint": "^3.5.0",
-    "typescript": "^1.8.7"
+    "typescript": "^1.8.7",
+    "typings": "^0.6.10"
   },
   "scripts": {
     "test": "npm run clean && npm run build && tap test/*.js",
     "clean": "rimraf es6 es5 ts",
-    "build:ts": "tsc -d",
+    "build:ts": "tsc",
     "build:es5": "babel -d es5 es6",
-    "build": "npm run build:ts && npm run build:es5 && mkdir ts && mv es6/*.d.ts ts",
+    "build": "npm run build:ts && npm run build:es5",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run clean && npm run build"

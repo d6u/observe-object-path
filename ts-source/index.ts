@@ -2,11 +2,12 @@ import { ReplaySubject, Observable } from 'rx';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 
-class ObserveObjectPath {
+export class ObserveObjectPath {
 
-  private observers = new Map<string, ObservingConfig>();
+  private observers = new Map<string, ObservingConfig<any>>();
 
-  constructor(public obj: Object = {}) { }
+  constructor(public obj: Object = {}) {
+  }
 
   update(newObj: Object) {
     for (const [ , { keypath, subject } ] of this.observers) {
@@ -19,16 +20,32 @@ class ObserveObjectPath {
     this.obj = newObj;
   }
 
-  observe(keypath: Keypath): Observable<any> {
-    const hash = hashKeypath(keypath);
-    let config: ObservingConfig;
-    if (!(config = this.observers.get(hash))) {
-      const subject = new ReplaySubject<any>(1);
-      subject.onNext(get(this.obj, keypath));
-      config = { keypath, subject };
-      this.observers.set(hash, config);
-    }
-    return config.subject;
+  observe<T>(keypath: Keypath): Observable<T> {
+    return Observable.create<T>((observer) => {
+      const hash = hashKeypath(keypath);
+
+      let config = this.observers.get(hash) as ObservingConfig<T>;
+
+      if (!config) {
+        const subject = new ReplaySubject<T>(1);
+        subject.onNext(get(this.obj, keypath));
+        config = { keypath, subject, count: 1 };
+        this.observers.set(hash, config);
+      } else {
+        config.count += 1;
+      }
+
+      const disposable = config.subject.subscribe(observer);
+
+      return () => {
+        disposable.dispose();
+        config.count -= 1;
+
+        if (config.count === 0) {
+          this.observers.delete(hash);
+        }
+      };
+    });
   }
 
 }
@@ -43,11 +60,8 @@ function hashKeypath(keypath: Keypath): string {
 
 export type Keypath = (string | number)[];
 
-interface ObservingConfig {
+interface ObservingConfig<T> {
   keypath: Keypath;
-  subject: ReplaySubject<any>;
-}
-
-export {
-  ObserveObjectPath,
+  subject: ReplaySubject<T>;
+  count: number;
 }
