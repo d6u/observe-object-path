@@ -2,11 +2,11 @@ import { ReplaySubject, Observable } from 'rx';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 
-export class ObserveObjectPath {
+export default class ObserveObjectPath {
 
   private observers = new Map<string, ObservingConfig<any>>();
 
-  constructor(public obj: Object = {}) {
+  constructor(private obj: Object = {}) {
   }
 
   update(newObj: Object) {
@@ -28,7 +28,7 @@ export class ObserveObjectPath {
 
       if (!config) {
         const subject = new ReplaySubject<T>(1);
-        subject.onNext(get(this.obj, keypath));
+        subject.onNext(get<any>(this.obj, keypath));
         config = { keypath, subject, count: 1 };
         this.observers.set(hash, config);
       } else {

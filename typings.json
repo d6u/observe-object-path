@@ -1,5 +1,8 @@
 {
   "name": "observe-object-path",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "ambientDependencies": {
+    "rx": "file:node_modules/rx/ts/rx.all.d.ts"
+  }
 }

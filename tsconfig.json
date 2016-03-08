@@ -2,16 +2,16 @@
   "compilerOptions": {
     "removeComments": false,
     "preserveConstEnums": true,
-    "sourceMap": true,
-    "declaration": true,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
+    "module": "commonjs",
     "target": "es2015",
-    "outDir": "es6"
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "es2015"
   },
   "files": [
-    "node_modules/rx/ts/rx.all.d.ts",
-    "typings/lodash.d.ts",
-    "ts-source/index.ts"
+    "typings/main.d.ts",
+    "src/index.ts"
   ]
 }
