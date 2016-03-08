@@ -1,7 +1,7 @@
 'use strict';
 
 const tap = require('tap');
-const ObserveObjectPath = require('../es5').ObserveObjectPath;
+const ObserveObjectPath = require('../lib').ObserveObjectPath;
 
 tap.test('emit value immediately when observed', function (t) {
   t.plan(1);

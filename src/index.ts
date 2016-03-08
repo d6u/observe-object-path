@@ -2,7 +2,7 @@ import { ReplaySubject, Observable } from 'rx';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 
-export default class ObserveObjectPath {
+export class ObserveObjectPath {
 
   private observers = new Map<string, ObservingConfig<any>>();
 
