@@ -1,4 +1,4 @@
-import { ReplaySubject, Observable } from 'rx';
+import { Subject, Observable } from 'rx';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 
@@ -10,14 +10,15 @@ export class ObserveObjectPath {
   }
 
   update(newObj: Object) {
+    const oldObj = this.obj;
+    this.obj = newObj;
     for (const [ , { keypath, subject } ] of this.observers) {
-      const curVal = get(this.obj, keypath);
+      const curVal = get(oldObj, keypath);
       const newVal = get(newObj, keypath);
       if (!isEqual(curVal, newVal)) {
         subject.onNext(newVal);
       }
     }
-    this.obj = newObj;
   }
 
   observe<T>(keypath: Keypath): Observable<T> {
@@ -27,8 +28,7 @@ export class ObserveObjectPath {
       let config = this.observers.get(hash) as ObservingConfig<T>;
 
       if (!config) {
-        const subject = new ReplaySubject<T>(1);
-        subject.onNext(get<any>(this.obj, keypath));
+        const subject = new Subject<T>();
         config = { keypath, subject, count: 1 };
         this.observers.set(hash, config);
       } else {
@@ -48,6 +48,10 @@ export class ObserveObjectPath {
     });
   }
 
+  get<T>(keypath: Keypath): T {
+    return get(this.obj, keypath) as T;
+  }
+
 }
 
 function hashKeypath(keypath: Keypath): string {
@@ -62,6 +66,6 @@ export type Keypath = (string | number)[];
 
 interface ObservingConfig<T> {
   keypath: Keypath;
-  subject: ReplaySubject<T>;
+  subject: Subject<T>;
   count: number;
 }
