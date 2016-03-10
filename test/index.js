@@ -3,37 +3,25 @@
 const tap = require('tap');
 const ObserveObjectPath = require('../lib').ObserveObjectPath;
 
-tap.test('emit value immediately when observed', function (t) {
+tap.test('emit new value immediately when update', function (t) {
   t.plan(1);
 
   const oop = new ObserveObjectPath({ prop: 'A' });
 
   oop.observe(['prop']).subscribe((val) => {
-    t.equal(val, 'A');
-  });
-});
-
-tap.test('emit new value immediately when update', function (t) {
-  t.plan(2);
-
-  const expected = ['A', 'B'];
-
-  const oop = new ObserveObjectPath({ prop: 'A' });
-
-  oop.observe(['prop']).subscribe((val) => {
-    t.equal(val, expected.shift());
+    t.equal(val, 'B');
   });
 
   oop.update({ prop: 'B' });
 });
 
 tap.test('not emit value if values are the same', function (t) {
-  t.plan(1);
+  t.plan(0);
 
   const oop = new ObserveObjectPath({ prop: 'A' });
 
   oop.observe(['prop']).subscribe((val) => {
-    t.equal(val, 'A');
+    t.fail('should not reach here');
   });
 
   oop.update({ prop: 'A' });
