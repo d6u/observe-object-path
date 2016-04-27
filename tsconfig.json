@@ -1,17 +1,17 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "module": "es2015",
-    "target": "es2015",
-    "sourceMap": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": false,
+    "outDir": "lib-es6",
     "declaration": true,
-    "outDir": "es2015"
+    "listFiles": true,
+    "pretty": true
   },
   "files": [
-    "typings/main.d.ts",
-    "src/index.ts"
+    "src/index.ts",
+    "typings/browser.d.ts"
   ]
 }

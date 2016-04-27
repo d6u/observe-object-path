@@ -1,8 +1,5 @@
 {
-  "name": "observe-object-path",
-  "dependencies": {},
-  "devDependencies": {},
-  "ambientDependencies": {
-    "rx": "file:node_modules/rx/ts/rx.all.d.ts"
+  "dependencies": {
+    "ramda": "registry:npm/ramda#0.19.1+20160323180342"
   }
 }
