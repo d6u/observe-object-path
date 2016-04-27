@@ -13,9 +13,7 @@ var obj = {
 
 var oop = new ObserveObjectPath(obj);
 
-oop
-  .observe(['nested', 'prop'])
-  .subscribe((val) => console.log(val));
+oop.on(['nested', 'prop'], (val) => console.log(val));
 
 oop.update({
   nested: {
@@ -23,6 +21,17 @@ oop.update({
   }
 });
 
-// Should log 'propVal' at initial subscription
-// Then log 'propNewVal' after `update` is called
+// Log 'propNewVal' after `update` is called
 ```
+
+## API
+
+### `constructor(object: any)`
+
+### `on(path: string[], handler: (val: any) => void)`
+### `addEventListener(path: string[], handler: (val: any) => void)`
+
+### `off(path: string[], handler: (val: any) => void)`
+### `removeEventListener(path: string[], handler: (val: any) => void)`
+
+### `update(object: any)`
