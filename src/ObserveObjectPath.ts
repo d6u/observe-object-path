@@ -1,13 +1,6 @@
 import {path, equals} from 'ramda';
 import {Keypath, ChangeHandler, ListenerConfig} from './interfaces';
-
-function hashKeypath(keypath: Keypath): string {
-  let hash = '';
-  for (let i = 0; i < keypath.length; i++) {
-    hash += i.toString() + keypath[i].toString();
-  }
-  return hash;
-}
+import {hashKeypath} from './helpers';
 
 export default class ObserveObjectPath {
 
@@ -64,16 +57,19 @@ export default class ObserveObjectPath {
     return path<T>(keypath, this.obj);
   }
 
-  // update(newObj: Object) {
-  //   const oldObj = this.obj;
-  //   this.obj = newObj;
-  //   for (const [ , { keypath, subject } ] of this.observers) {
-  //     const curVal = get(oldObj, keypath);
-  //     const newVal = get(newObj, keypath);
-  //     if (!isEqual(curVal, newVal)) {
-  //       subject.onNext(newVal);
-  //     }
-  //   }
-  // }
+  update(newObj: Object) {
+    const oldObj = this.obj;
+    this.obj = newObj;
+    for (const hash of Object.keys(this.listenersMap)) {
+      const {keypath, handlers} = this.listenersMap[hash];
+      const oldVal = path<any>(keypath, oldObj);
+      const newVal = path<any>(keypath, newObj);
+      if (!equals(oldVal, newVal)) {
+        for (const handler of handlers) {
+          handler(newVal);
+        }
+      }
+    }
+  }
 
 }
