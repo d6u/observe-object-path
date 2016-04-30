@@ -33,12 +33,12 @@ oop.update({
 
 ## API
 
-### `constructor(object: any)`
+#### `constructor(object: any)`
 
-### `on(path: string[], handler: (val: any) => void)`
-### `addEventListener(path: string[], handler: (val: any) => void)`
+#### `on(path: string[], handler: (val: any) => void)`
+#### `addEventListener(path: string[], handler: (val: any) => void)`
 
-### `off(path: string[], handler: (val: any) => void)`
-### `removeEventListener(path: string[], handler: (val: any) => void)`
+#### `off(path: string[], handler?: (val: any) => void)`
+#### `removeEventListener(path: string[], handler?: (val: any) => void)`
 
-### `update(object: any)`
+#### `update(object: any)`
