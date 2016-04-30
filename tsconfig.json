@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "es6",
     "target": "es6",
     "noImplicitAny": false,
     "outDir": "lib-es6",
