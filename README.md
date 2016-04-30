@@ -1,5 +1,6 @@
 # Observe Object Path
 
+[![npm version](https://badge.fury.io/js/observe-object-path.svg)](https://badge.fury.io/js/observe-object-path)
 [![Circle CI](https://circleci.com/gh/d6u/observe-object-path/tree/master.svg?style=svg)](https://circleci.com/gh/d6u/observe-object-path/tree/master)
 
 ## Usage
