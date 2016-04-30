@@ -3,5 +3,6 @@ machine:
     version: 4
 test:
   override:
+    - typings install
     - npm run build
     - npm run check
