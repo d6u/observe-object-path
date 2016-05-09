@@ -61,6 +61,12 @@ export default class ObserveObjectPath {
     const oldObj = this.obj;
     this.obj = newObj;
     for (const hash of Object.keys(this.listenersMap)) {
+      // listenersMap[hash] was assigned to null when off
+      // which will leave a key with null value to listenersMap object
+      if (!this.listenersMap[hash]) {
+        continue;
+      }
+
       const {keypath, handlers} = this.listenersMap[hash];
       const oldVal = path<any>(keypath, oldObj);
       const newVal = path<any>(keypath, newObj);
