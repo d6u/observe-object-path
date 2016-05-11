@@ -21,7 +21,7 @@
   "typings": "lib-es6/index.d.ts",
   "jsnext:main": "lib-es6/index.js",
   "dependencies": {
-    "ramda": "0.21.0"
+    "lodash": "^4.12.0"
   },
   "devDependencies": {
     "babel-cli": "6.6.5",
@@ -44,6 +44,8 @@
     "build:lib-es6": "tsc",
     "build:lib": "babel -d lib lib-es6",
     "build": "npm run clean && npm run build:lib-es6 && npm run build:lib",
+    "prewatch:build": "npm run build",
+    "watch:build": "tsc -w & babel -w -d lib lib-es6",
     "preversion": "npm run build && npm run check",
     "postversion": "git push && git push --tags"
   }

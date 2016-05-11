@@ -1,6 +1,11 @@
-import {path, equals} from 'ramda';
-import {Keypath, ChangeHandler, ListenerConfig} from './interfaces';
-import {hashKeypath} from './helpers';
+import path from 'lodash/fp/path';
+import equals from 'lodash/fp/equals';
+import {hashKeyPath} from './helpers';
+import {
+  KeyPath,
+  ChangeHandler,
+  ListenerConfig,
+} from './interfaces';
 
 export default class ObserveObjectPath {
 
@@ -8,8 +13,8 @@ export default class ObserveObjectPath {
 
   constructor(private obj: any) {}
 
-  on(keypath: Keypath, handler: ChangeHandler) {
-    const hash = hashKeypath(keypath);
+  on(keyPath: KeyPath, handler: ChangeHandler) {
+    const hash = hashKeyPath(keyPath);
 
     if (this.listenersMap[hash]) {
       this.listenersMap[hash].handlers.push(handler);
@@ -17,17 +22,17 @@ export default class ObserveObjectPath {
     }
 
     this.listenersMap[hash] = {
-      keypath: keypath,
+      keyPath: keyPath,
       handlers: [handler],
     };
   }
 
-  addEventListener(keypath: Keypath, handler: ChangeHandler) {
-    return this.on(keypath, handler);
+  addEventListener(keyPath: KeyPath, handler: ChangeHandler) {
+    return this.on(keyPath, handler);
   }
 
-  off(keypath: Keypath, handler?: ChangeHandler) {
-    const hash = hashKeypath(keypath);
+  off(keyPath: KeyPath, handler?: ChangeHandler) {
+    const hash = hashKeyPath(keyPath);
 
     if (!this.listenersMap[hash]) {
       return;
@@ -49,12 +54,12 @@ export default class ObserveObjectPath {
     }
   }
 
-  removeEventListener(keypath: Keypath, handler?: ChangeHandler) {
-    return this.off(keypath, handler);
+  removeEventListener(keyPath: KeyPath, handler?: ChangeHandler) {
+    return this.off(keyPath, handler);
   }
 
-  get<T>(keypath: Keypath): T {
-    return path<T>(keypath, this.obj);
+  get<T>(keyPath: KeyPath): T {
+    return path<T>(keyPath, this.obj);
   }
 
   update(newObj: Object) {
@@ -67,9 +72,9 @@ export default class ObserveObjectPath {
         continue;
       }
 
-      const {keypath, handlers} = this.listenersMap[hash];
-      const oldVal = path<any>(keypath, oldObj);
-      const newVal = path<any>(keypath, newObj);
+      const {keyPath, handlers} = this.listenersMap[hash];
+      const oldVal = path<any>(keyPath, oldObj);
+      const newVal = path<any>(keyPath, newObj);
       if (!equals(oldVal, newVal)) {
         for (const handler of handlers) {
           handler(newVal);

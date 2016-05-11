@@ -1,9 +1,9 @@
-import {Keypath} from './interfaces';
+import {KeyPath} from './interfaces';
 
-export function hashKeypath(keypath: Keypath): string {
+export function hashKeyPath(keyPath: KeyPath): string {
   let hash = '';
-  for (let i = 0; i < keypath.length; i++) {
-    hash += i.toString() + keypath[i].toString();
+  for (let i = 0; i < keyPath.length; i++) {
+    hash += i.toString() + keyPath[i].toString();
   }
   return hash;
 }

@@ -1,8 +1,14 @@
-export type Keypath = string[];
+export type KeyPath = (string | number)[];
 
-export type ChangeHandler = (val: any) => void;
+export interface ChangeHandler {
+  (val: any): void;
+}
 
 export interface ListenerConfig {
-  keypath: Keypath;
+  keyPath: KeyPath;
   handlers: ChangeHandler[];
+}
+
+export interface KeyPathMap {
+  [key: string]: KeyPath;
 }
