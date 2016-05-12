@@ -90,3 +90,27 @@ test('get() gets target value', (t) => {
 
   t.equal(oop.get(['prop']), 'A');
 });
+
+test('on() emit new value for keyPathMap immediately when update', (t) => {
+  t.plan(1);
+
+  const oop = new ObserveObjectPath({propA: '1', propB: '2'});
+
+  oop.on({a: ['propA'], b: ['propB']}, (val) => {
+    t.deepEqual(val, {a: 'A', b: 'B'});
+  });
+
+  oop.update({propA: 'A', propB: 'B'});
+});
+
+test('on() not emit new value if values are the same', (t) => {
+  const oop = new ObserveObjectPath({propA: '1', propB: '2'});
+
+  oop.on({a: ['propA'], b: ['propB']}, (val) => {
+    t.fail('should not reach here');
+  });
+
+  oop.update({propA: '1', propB: '2'});
+
+  t.end();
+});

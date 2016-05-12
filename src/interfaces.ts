@@ -11,6 +11,6 @@ export interface ChangeHandler {
 }
 
 export interface ListenerConfig {
-  keyPath: KeyPath;
+  keyPathConfig: KeyPathConfig;
   handlers: ChangeHandler[];
 }
