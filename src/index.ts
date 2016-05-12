@@ -1,5 +1,1 @@
-import ObserveObjectPath from './ObserveObjectPath';
-
-export {
-  ObserveObjectPath,
-};
+export {default as ObserveObjectPath} from './ObserveObjectPath';

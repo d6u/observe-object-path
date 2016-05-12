@@ -13,6 +13,7 @@
   "files": [
     "src/index.ts",
     "typings-custom/lodash.d.ts",
+    "typings-custom/object-hash.d.ts",
     "typings/browser.d.ts"
   ]
 }

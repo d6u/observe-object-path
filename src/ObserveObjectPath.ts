@@ -1,6 +1,6 @@
 import path from 'lodash/fp/path';
 import equals from 'lodash/fp/equals';
-import {hashKeyPath} from './helpers';
+import hash from 'object-hash';
 import {
   KeyPath,
   ChangeHandler,
@@ -14,14 +14,14 @@ export default class ObserveObjectPath {
   constructor(private obj: any) {}
 
   on(keyPath: KeyPath, handler: ChangeHandler) {
-    const hash = hashKeyPath(keyPath);
+    const h = hash(keyPath);
 
-    if (this.listenersMap[hash]) {
-      this.listenersMap[hash].handlers.push(handler);
+    if (this.listenersMap[h]) {
+      this.listenersMap[h].handlers.push(handler);
       return;
     }
 
-    this.listenersMap[hash] = {
+    this.listenersMap[h] = {
       keyPath: keyPath,
       handlers: [handler],
     };
@@ -32,22 +32,22 @@ export default class ObserveObjectPath {
   }
 
   off(keyPath: KeyPath, handler?: ChangeHandler) {
-    const hash = hashKeyPath(keyPath);
+    const h = hash(keyPath);
 
-    if (!this.listenersMap[hash]) {
+    if (!this.listenersMap[h]) {
       return;
     }
 
     if (!handler) {
-      this.listenersMap[hash] = null;
+      this.listenersMap[h] = null;
       return;
     }
 
-    for (let i = 0; i < this.listenersMap[hash].handlers.length; i += 1) {
-      if (this.listenersMap[hash].handlers[i] === handler) {
-        this.listenersMap[hash].handlers.splice(i, 1);
-        if (this.listenersMap[hash].handlers.length === 0) {
-          this.listenersMap[hash] = null;
+    for (let i = 0; i < this.listenersMap[h].handlers.length; i += 1) {
+      if (this.listenersMap[h].handlers[i] === handler) {
+        this.listenersMap[h].handlers.splice(i, 1);
+        if (this.listenersMap[h].handlers.length === 0) {
+          this.listenersMap[h] = null;
         }
         return;
       }
@@ -65,14 +65,14 @@ export default class ObserveObjectPath {
   update(newObj: Object) {
     const oldObj = this.obj;
     this.obj = newObj;
-    for (const hash of Object.keys(this.listenersMap)) {
+    for (const h of Object.keys(this.listenersMap)) {
       // listenersMap[hash] was assigned to null when off
       // which will leave a key with null value to listenersMap object
-      if (!this.listenersMap[hash]) {
+      if (!this.listenersMap[h]) {
         continue;
       }
 
-      const {keyPath, handlers} = this.listenersMap[hash];
+      const {keyPath, handlers} = this.listenersMap[h];
       const oldVal = path<any>(keyPath, oldObj);
       const newVal = path<any>(keyPath, newObj);
       if (!equals(oldVal, newVal)) {
